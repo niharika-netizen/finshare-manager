@@ -2,7 +2,7 @@ export interface FIType {
   id: string;
   name: string;
   description: string;
-  filterCount: number;
+  availableFilters: string[];
 }
 
 export interface ProfileData {
