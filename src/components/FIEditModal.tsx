@@ -3,9 +3,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, RotateCcw, Save, Undo2 } from "lucide-react";
 import { FIType } from "@/types/fi-types";
-import ProfileTab from "./tabs/ProfileTab";
-import SummaryTab from "./tabs/SummaryTab";
-import TransactionTab from "./tabs/TransactionTab";
+import AccountTab from "./tabs/AccountTab";
+import NewProfileTab from "./tabs/NewProfileTab";
+import NewSummaryTab from "./tabs/NewSummaryTab";
+import NewTransactionTab from "./tabs/NewTransactionTab";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -16,8 +17,12 @@ interface FIEditModalProps {
 }
 
 const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
-  const [activeTab, setActiveTab] = useState("profile");
+  const [activeTab, setActiveTab] = useState("account");
   const [hasChanges, setHasChanges] = useState(false);
+
+  const handleDataChange = () => {
+    setHasChanges(true);
+  };
 
   const handleSave = () => {
     toast.success("Changes saved successfully");
@@ -74,53 +79,28 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
 
         <div className="flex-1 overflow-hidden px-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
-            <TabsList className="grid w-full grid-cols-3 mb-4">
+            <TabsList className="grid w-full grid-cols-4 mb-4">
+              <TabsTrigger value="account">Account</TabsTrigger>
               <TabsTrigger value="profile">Profile</TabsTrigger>
               <TabsTrigger value="summary">Summary</TabsTrigger>
-              <TabsTrigger value="transaction">Transaction</TabsTrigger>
+              <TabsTrigger value="transactions">Transactions</TabsTrigger>
             </TabsList>
 
             <div className="flex-1 overflow-auto pb-4">
+              <TabsContent value="account" className="mt-0 h-full">
+                <AccountTab onDataChange={handleDataChange} />
+              </TabsContent>
+
               <TabsContent value="profile" className="mt-0 h-full">
-                <ProfileTab onDataChange={() => setHasChanges(true)} />
-                <div className="mt-4 pt-4 border-t">
-                  <Button
-                    variant="link"
-                    onClick={handleRBIGuidelines}
-                    className="gap-2 text-primary"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    View RBI Guidelines
-                  </Button>
-                </div>
+                <NewProfileTab onDataChange={handleDataChange} />
               </TabsContent>
 
               <TabsContent value="summary" className="mt-0 h-full">
-                <SummaryTab onDataChange={() => setHasChanges(true)} />
-                <div className="mt-4 pt-4 border-t">
-                  <Button
-                    variant="link"
-                    onClick={handleRBIGuidelines}
-                    className="gap-2 text-primary"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    View RBI Guidelines
-                  </Button>
-                </div>
+                <NewSummaryTab onDataChange={handleDataChange} />
               </TabsContent>
 
-              <TabsContent value="transaction" className="mt-0 h-full">
-                <TransactionTab onDataChange={() => setHasChanges(true)} />
-                <div className="mt-4 pt-4 border-t">
-                  <Button
-                    variant="link"
-                    onClick={handleRBIGuidelines}
-                    className="gap-2 text-primary"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    View RBI Guidelines
-                  </Button>
-                </div>
+              <TabsContent value="transactions" className="mt-0 h-full">
+                <NewTransactionTab onDataChange={handleDataChange} />
               </TabsContent>
             </div>
           </Tabs>
