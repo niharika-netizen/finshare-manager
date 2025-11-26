@@ -2,7 +2,6 @@ export interface FIType {
   id: string;
   name: string;
   description: string;
-  availableFilters: string[];
   accountNumber: string;
   schemaVersion: string;
   accountType: string;
