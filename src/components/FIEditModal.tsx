@@ -129,55 +129,67 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                 <NewSummaryTab onDataChange={handleDataChange} />
               </TabsContent>
 
-              <TabsContent value="transactions" className="mt-0 h-full overflow-x-auto overflow-y-auto flex flex-col p-6 min-w-full">
+              <TabsContent value="transactions" className="mt-0 h-full overflow-hidden flex flex-col p-6 min-w-full">
                 {/* Date Range Filter */}
-                <div className="flex items-center gap-6 mb-6 pb-6 border-b">
-                  <div className="flex items-center gap-2">
-                    <label className="text-sm font-medium text-gray-700">Start Date</label>
-                    <span className="text-red-500">*</span>
-                    <input
-                      type="date"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                      className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
+                <div className="flex items-center gap-8 mb-6 pb-6">
+                  <div className="flex items-center gap-3">
+                    <label className="text-sm font-medium text-gray-900">Start Date</label>
+                    <span className="text-red-500 font-bold">*</span>
+                    <div className="flex items-center gap-2 border border-gray-300 rounded px-3 py-2 bg-white">
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        className="border-0 focus:outline-none focus:ring-0 text-sm font-medium text-gray-900"
+                      />
+                    </div>
                   </div>
 
-                  <div className="flex items-center gap-2">
-                    <label className="text-sm font-medium text-gray-700">End Date</label>
-                    <span className="text-red-500">*</span>
-                    <input
-                      type="date"
-                      value={endDate}
-                      onChange={(e) => setEndDate(e.target.value)}
-                      className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
+                  <div className="flex items-center gap-3">
+                    <label className="text-sm font-medium text-gray-900">End Date</label>
+                    <span className="text-red-500 font-bold">*</span>
+                    <div className="flex items-center gap-2 border border-gray-300 rounded px-3 py-2 bg-white">
+                      <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <input
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        className="border-0 focus:outline-none focus:ring-0 text-sm font-medium text-gray-900"
+                      />
+                    </div>
                   </div>
 
                   <div className="flex-1"></div>
 
-                  <Button variant="outline" size="sm" onClick={handleRBIGuidelines}>
+                  <Button variant="outline" size="sm" onClick={handleRBIGuidelines} className="flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
                     View RBI Guidelines
                   </Button>
                 </div>
 
-                {/* Transaction Table */}
-                <div className="flex-1 overflow-auto border border-gray-200 rounded-lg">
+                {/* Transaction Table with Horizontal Scroll */}
+                <div className="flex-1 overflow-x-auto overflow-y-auto border border-gray-300 rounded-lg bg-white">
                   <table className="w-full border-collapse text-sm">
-                    <thead className="sticky top-0 bg-gray-100 border-b border-gray-300">
+                    <thead className="sticky top-0 bg-gray-50 border-b border-gray-300">
                       <tr>
                         {transactionFields.length > 0 ? (
                           transactionFields.map((field) => (
                             <th
                               key={field.name}
-                              className="px-4 py-3 text-left font-semibold text-gray-700 border-r border-gray-300 last:border-r-0 whitespace-nowrap"
+                              className="px-6 py-4 text-left font-semibold text-gray-600 border-r border-gray-300 last:border-r-0 whitespace-nowrap"
                             >
                               {field.label}
-                              {field.required && <span className="text-red-500 ml-1">*</span>}
                             </th>
                           ))
                         ) : (
-                          <th className="px-4 py-3 text-center text-gray-500 font-medium">
+                          <th className="px-6 py-4 text-center text-gray-500 font-medium">
                             No transaction fields configured for this FI type
                           </th>
                         )}
@@ -219,13 +231,13 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                               return (
                                 <td
                                   key={field.name}
-                                  className="px-4 py-3 border-r border-gray-200 last:border-r-0 text-gray-700"
+                                  className="px-6 py-4 border-r border-gray-200 last:border-r-0 text-gray-900 font-medium"
                                 >
                                   {field.type === "select" ? (
                                     <select
                                       value={value}
                                       onChange={(e) => handleDataChange()}
-                                      className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary appearance-none bg-white cursor-pointer"
+                                      className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary appearance-none bg-white cursor-pointer font-medium"
                                       style={{
                                         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
                                         backgroundRepeat: 'no-repeat',
@@ -296,7 +308,7 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                         ))
                       ) : (
                         <tr>
-                          <td className="px-4 py-8 text-center text-gray-500">
+                          <td className="px-6 py-8 text-center text-gray-500">
                             No transaction fields configured
                           </td>
                         </tr>
@@ -305,18 +317,16 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                   </table>
                 </div>
 
-                {/* Pagination Controls (Optional) */}
+                {/* Horizontal Scroll Indicator */}
                 {transactionFields.length > 0 && (
                   <div className="flex items-center justify-between mt-4">
-                    <span className="text-sm text-gray-600">Showing 2 of 2 transactions</span>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm" disabled>
-                        ← Previous
-                      </Button>
-                      <Button variant="outline" size="sm" disabled>
-                        Next →
-                      </Button>
-                    </div>
+                    <Button variant="ghost" size="sm" disabled className="text-gray-400">
+                      ◀
+                    </Button>
+                    <span className="text-xs text-gray-500">Scroll horizontally to see more</span>
+                    <Button variant="ghost" size="sm" disabled className="text-gray-400">
+                      ▶
+                    </Button>
                   </div>
                 )}
               </TabsContent>
