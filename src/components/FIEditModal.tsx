@@ -214,14 +214,65 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                             key={idx}
                             className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
                           >
-                            {transactionFields.map((field) => (
-                              <td
-                                key={field.name}
-                                className="px-4 py-3 border-r border-gray-200 last:border-r-0 text-gray-700"
-                              >
-                                {row[field.name as keyof typeof row] || "-"}
-                              </td>
-                            ))}
+                            {transactionFields.map((field) => {
+                              const value = row[field.name as keyof typeof row] || "";
+                              return (
+                                <td
+                                  key={field.name}
+                                  className="px-4 py-3 border-r border-gray-200 last:border-r-0 text-gray-700"
+                                >
+                                  {field.type === "select" ? (
+                                    <select
+                                      value={value}
+                                      onChange={(e) => handleDataChange()}
+                                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                    >
+                                      <option value="">{value || "Select..."}</option>
+                                      {field.options?.map((opt) => (
+                                        <option key={opt} value={opt}>
+                                          {opt}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  ) : field.type === "date" ? (
+                                    <input
+                                      type="date"
+                                      value={value}
+                                      onChange={(e) => handleDataChange()}
+                                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                    />
+                                  ) : field.type === "datetime" ? (
+                                    <input
+                                      type="datetime-local"
+                                      value={value}
+                                      onChange={(e) => handleDataChange()}
+                                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                    />
+                                  ) : field.type === "number" ? (
+                                    <input
+                                      type="number"
+                                      value={value}
+                                      onChange={(e) => handleDataChange()}
+                                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                    />
+                                  ) : field.type === "boolean" ? (
+                                    <input
+                                      type="checkbox"
+                                      checked={value === "true" || value === true}
+                                      onChange={(e) => handleDataChange()}
+                                      className="w-4 h-4 border border-gray-300 rounded focus:ring-2 focus:ring-primary cursor-pointer"
+                                    />
+                                  ) : (
+                                    <input
+                                      type="text"
+                                      value={value}
+                                      onChange={(e) => handleDataChange()}
+                                      className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                                    />
+                                  )}
+                                </td>
+                              );
+                            })}
                           </tr>
                         ))
                       ) : (
