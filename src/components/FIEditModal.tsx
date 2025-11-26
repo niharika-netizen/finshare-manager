@@ -90,20 +90,22 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                 <TabsTrigger value="transactions" className="w-full justify-start">Transactions</TabsTrigger>
               </TabsList>
 
-              <div className="flex-1 overflow-auto p-6">
-                <TabsContent value="account" className="mt-0 h-full">
-                  <AccountTab onDataChange={handleDataChange} />
-                </TabsContent>
+              <div className="flex-1 overflow-hidden flex flex-col">
+                <div className="flex-1 overflow-auto p-6">
+                  <TabsContent value="account" className="mt-0 h-full">
+                    <AccountTab onDataChange={handleDataChange} />
+                  </TabsContent>
 
-                <TabsContent value="profile" className="mt-0 h-full">
-                  <NewProfileTab onDataChange={handleDataChange} />
-                </TabsContent>
+                  <TabsContent value="profile" className="mt-0 h-full">
+                    <NewProfileTab onDataChange={handleDataChange} />
+                  </TabsContent>
 
-                <TabsContent value="summary" className="mt-0 h-full">
-                  <NewSummaryTab onDataChange={handleDataChange} />
-                </TabsContent>
-
-                <TabsContent value="transactions" className="mt-0 h-full">
+                  <TabsContent value="summary" className="mt-0 h-full">
+                    <NewSummaryTab onDataChange={handleDataChange} />
+                  </TabsContent>
+                </div>
+                
+                <TabsContent value="transactions" className="mt-0 flex-1 overflow-hidden">
                   <DynamicTransactionTab 
                     onDataChange={handleDataChange} 
                     transactionFields={transactionFields}

@@ -207,7 +207,7 @@ const DynamicTransactionTab = ({ onDataChange, transactionFields, fiTypeName }: 
   }
 
   return (
-    <div className="space-y-4">
+    <div className="h-full flex flex-col space-y-4 p-6">
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium">Start Date</label>
@@ -252,33 +252,31 @@ const DynamicTransactionTab = ({ onDataChange, transactionFields, fiTypeName }: 
         </div>
       </div>
 
-      <ScrollArea className="w-full">
-        <div className="min-w-max">
-          <Table>
-            <TableHeader>
-              <TableRow>
+      <div className="flex-1 overflow-auto border rounded-md">
+        <Table>
+          <TableHeader className="sticky top-0 bg-background z-10">
+            <TableRow>
+              {transactionFields.map((field) => (
+                <TableHead key={field.name} className="whitespace-nowrap min-w-[200px]">
+                  {field.label}
+                  {field.required && <span className="text-destructive ml-1">*</span>}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {transactions.map((transaction) => (
+              <TableRow key={transaction.id}>
                 {transactionFields.map((field) => (
-                  <TableHead key={field.name} className="whitespace-nowrap">
-                    {field.label}
-                    {field.required && <span className="text-destructive ml-1">*</span>}
-                  </TableHead>
+                  <TableCell key={field.name} className="min-w-[200px]">
+                    {renderEditableCell(transaction, field)}
+                  </TableCell>
                 ))}
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {transactions.map((transaction) => (
-                <TableRow key={transaction.id}>
-                  {transactionFields.map((field) => (
-                    <TableCell key={field.name} className="min-w-[200px]">
-                      {renderEditableCell(transaction, field)}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </ScrollArea>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 };
