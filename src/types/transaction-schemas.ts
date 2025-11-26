@@ -9,7 +9,7 @@ export interface TransactionFieldConfig {
   pattern?: string;
 }
 
-// Deposit (default banking transaction schema)
+// 1. Deposit (Banking)
 export const depositTransactionFields: TransactionFieldConfig[] = [
   { name: 'type', label: 'Type', type: 'select', required: true, options: ['CREDIT', 'DEBIT'] },
   { name: 'mode', label: 'Mode', type: 'select', required: true, options: ['CASH', 'UPI', 'IMPS', 'NEFT', 'RTGS', 'CARD', 'ATM', 'CHEQUE', 'DEMAND_DRAFT', 'AUTO_DEBIT', 'INTEREST_CREDIT', 'NACH', 'ECS', 'REMITTANCE', 'OTHERS'] },
@@ -22,7 +22,33 @@ export const depositTransactionFields: TransactionFieldConfig[] = [
   { name: 'reference', label: 'Reference', type: 'text', required: false },
 ];
 
-// Equities
+// 2. Term Deposits
+export const termDepositTransactionFields: TransactionFieldConfig[] = [
+  { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
+  { name: 'amount', label: 'Amount', type: 'number', required: true },
+  { name: 'transactionalBalance', label: 'Transactional Balance', type: 'number', required: true },
+  { name: 'narration', label: 'Narration', type: 'text', required: true },
+  { name: 'type', label: 'Type', type: 'select', required: true, options: ['CREDIT', 'DEBIT'] },
+  { name: 'mode', label: 'Mode', type: 'select', required: true, options: ['CASH', 'UPI', 'IMPS', 'NEFT', 'RTGS', 'CARD', 'ATM', 'CHEQUE', 'DEMAND_DRAFT', 'AUTO_DEBIT', 'INTEREST_CREDIT', 'NACH', 'ECS', 'REMITTANCE', 'OTHERS'] },
+  { name: 'transactionDateTime', label: 'Transaction DateTime', type: 'datetime', required: true },
+  { name: 'valueDate', label: 'Value Date', type: 'datetime', required: true },
+  { name: 'reference', label: 'Reference', type: 'text', required: false },
+];
+
+// 3. Recurring Deposit
+export const recurringDepositTransactionFields: TransactionFieldConfig[] = [
+  { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
+  { name: 'amount', label: 'Amount', type: 'number', required: true },
+  { name: 'transactionalBalance', label: 'Transactional Balance', type: 'number', required: true },
+  { name: 'narration', label: 'Narration', type: 'text', required: true },
+  { name: 'type', label: 'Type', type: 'select', required: true, options: ['CREDIT', 'DEBIT'] },
+  { name: 'mode', label: 'Mode', type: 'select', required: true, options: ['CASH', 'UPI', 'IMPS', 'NEFT', 'RTGS', 'CARD', 'ATM', 'CHEQUE', 'DEMAND_DRAFT', 'AUTO_DEBIT', 'INTEREST_CREDIT', 'NACH', 'ECS', 'REMITTANCE', 'OTHERS'] },
+  { name: 'transactionDateTime', label: 'Transaction DateTime', type: 'datetime', required: true },
+  { name: 'valueDate', label: 'Value Date', type: 'datetime', required: true },
+  { name: 'reference', label: 'Reference', type: 'text', required: false },
+];
+
+// 4. Equities
 export const equitiesTransactionFields: TransactionFieldConfig[] = [
   { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
   { name: 'orderId', label: 'Order ID', type: 'text', required: false },
@@ -38,7 +64,7 @@ export const equitiesTransactionFields: TransactionFieldConfig[] = [
   { name: 'units', label: 'Units', type: 'number', required: true },
 ];
 
-// ETF
+// 5. ETF
 export const etfTransactionFields: TransactionFieldConfig[] = [
   { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
   { name: 'isin', label: 'ISIN', type: 'text', required: true },
@@ -52,7 +78,7 @@ export const etfTransactionFields: TransactionFieldConfig[] = [
   { name: 'brokerCode', label: 'Broker Code', type: 'text', required: false },
 ];
 
-// General Insurance
+// 6. General Insurance
 export const generalInsuranceTransactionFields: TransactionFieldConfig[] = [
   { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
   { name: 'txnDate', label: 'Transaction Date', type: 'date', required: true },
@@ -61,7 +87,10 @@ export const generalInsuranceTransactionFields: TransactionFieldConfig[] = [
   { name: 'amount', label: 'Amount', type: 'number', required: true },
 ];
 
-// IDR
+// 7. Life Insurance
+export const lifeInsuranceTransactionFields: TransactionFieldConfig[] = [];
+
+// 8. IDR
 export const idrTransactionFields: TransactionFieldConfig[] = [
   { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
   { name: 'transactionDateTime', label: 'Transaction DateTime', type: 'datetime', required: true },
@@ -74,7 +103,7 @@ export const idrTransactionFields: TransactionFieldConfig[] = [
   { name: 'narration', label: 'Narration', type: 'text', required: false },
 ];
 
-// InvIT
+// 9. InvIT
 export const invitTransactionFields: TransactionFieldConfig[] = [
   { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
   { name: 'isin', label: 'ISIN', type: 'text', required: true },
@@ -85,7 +114,7 @@ export const invitTransactionFields: TransactionFieldConfig[] = [
   { name: 'units', label: 'Units', type: 'number', required: true },
 ];
 
-// Mutual Funds
+// 10. Mutual Funds
 export const mutualFundsTransactionFields: TransactionFieldConfig[] = [
   { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
   { name: 'amc', label: 'AMC', type: 'text', required: true },
@@ -108,18 +137,72 @@ export const mutualFundsTransactionFields: TransactionFieldConfig[] = [
   { name: 'transactionDate', label: 'Transaction Date', type: 'text', required: false },
 ];
 
+// 11. SIP (Systematic Investment Plan)
+export const sipTransactionFields: TransactionFieldConfig[] = [];
+
+// 12. REIT
+export const reitTransactionFields: TransactionFieldConfig[] = [
+  { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
+  { name: 'isin', label: 'ISIN', type: 'text', required: true },
+  { name: 'isinDescription', label: 'ISIN Description', type: 'text', required: true },
+  { name: 'issuerName', label: 'Issuer Name', type: 'text', required: true },
+  { name: 'exchange', label: 'Exchange', type: 'text', required: false },
+  { name: 'transactionDescription', label: 'Transaction Description', type: 'text', required: false },
+  { name: 'transactionDateTime', label: 'Transaction DateTime', type: 'datetime', required: true },
+  { name: 'units', label: 'Units', type: 'number', required: true },
+  { name: 'narration', label: 'Narration', type: 'text', required: false },
+];
+
+// 13. CIS (Collective Investment Scheme)
+export const cisTransactionFields: TransactionFieldConfig[] = [
+  { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
+  { name: 'transactionDateTime', label: 'Transaction DateTime', type: 'datetime', required: true },
+  { name: 'schemeCode', label: 'Scheme Code', type: 'text', required: false },
+  { name: 'isin', label: 'ISIN', type: 'text', required: true },
+  { name: 'isinDescription', label: 'ISIN Description', type: 'text', required: true },
+  { name: 'dividendType', label: 'Dividend Type', type: 'select', required: false, options: ['INTERIM-DIVIDENT', 'FINAL-DIVIDENT'] },
+  { name: 'ucc', label: 'UCC', type: 'text', required: false },
+  { name: 'amount', label: 'Amount', type: 'number', required: false },
+  { name: 'units', label: 'Units', type: 'number', required: true },
+  { name: 'nav', label: 'NAV', type: 'number', required: true },
+  { name: 'navDate', label: 'NAV Date', type: 'date', required: true },
+  { name: 'type', label: 'Type', type: 'select', required: true, options: ['AMALGAMATION', 'BONUS', 'BUY-BACK', 'CAPITAL-REDUCTION_or_CONSOLIDATION-OF-SHARES', 'CONVERSION-OF-DEBENTURES-INTO-SHARES', 'DEMERGER', 'DIVIDEND', 'OPEN-OFFER', 'RIGHTS-ISSUE', 'STOCK-SPLIT', 'OTHERS'] },
+  { name: 'mode', label: 'Mode', type: 'select', required: false, options: ['DEMAT', 'PHYSICAL'] },
+  { name: 'narration', label: 'Narration', type: 'text', required: false },
+];
+
+// 14. AIF (Alternative Investment Fund)
+export const aifTransactionFields: TransactionFieldConfig[] = [
+  { name: 'txnId', label: 'Transaction ID', type: 'text', required: true },
+  { name: 'nameofAsset', label: 'Name of Asset', type: 'text', required: true },
+  { name: 'investmentValue', label: 'Investment Value', type: 'number', required: false },
+  { name: 'redemptionDate', label: 'Redemption Date', type: 'date', required: false },
+  { name: 'units', label: 'Units', type: 'number', required: true },
+  { name: 'narration', label: 'Narration', type: 'text', required: false },
+];
+
+// 15. NPS (National Pension System)
+export const npsTransactionFields: TransactionFieldConfig[] = [];
+
+// 16. GST (Goods and Services Tax)
+export const gstTransactionFields: TransactionFieldConfig[] = [];
+
 // Transaction schema map
 export const transactionSchemaMap: Record<string, TransactionFieldConfig[]> = {
   'Deposit': depositTransactionFields,
+  'Term Deposits': termDepositTransactionFields,
+  'Recurring Deposit': recurringDepositTransactionFields,
   'Equities': equitiesTransactionFields,
   'ETF': etfTransactionFields,
   'General Insurance': generalInsuranceTransactionFields,
+  'Life Insurance': lifeInsuranceTransactionFields,
   'IDR': idrTransactionFields,
   'InvIT': invitTransactionFields,
   'Mutual Funds': mutualFundsTransactionFields,
-  // Life Insurance and NPS have empty transaction schemas
-  'Life Insurance': [],
-  'NPS': [],
-  // GST is complex, using deposit as default for now
-  'GST': depositTransactionFields,
+  'SIP': sipTransactionFields,
+  'REIT': reitTransactionFields,
+  'CIS': cisTransactionFields,
+  'AIF': aifTransactionFields,
+  'NPS': npsTransactionFields,
+  'GST': gstTransactionFields,
 };
