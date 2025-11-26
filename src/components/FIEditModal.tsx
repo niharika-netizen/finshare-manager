@@ -129,7 +129,7 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                 <NewSummaryTab onDataChange={handleDataChange} />
               </TabsContent>
 
-              <TabsContent value="transactions" className="mt-0 h-full overflow-hidden flex flex-col p-6">
+              <TabsContent value="transactions" className="mt-0 h-full overflow-x-auto overflow-y-auto flex flex-col p-6 min-w-full">
                 {/* Date Range Filter */}
                 <div className="flex items-center gap-6 mb-6 pb-6 border-b">
                   <div className="flex items-center gap-2">
