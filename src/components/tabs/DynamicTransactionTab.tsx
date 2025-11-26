@@ -15,9 +15,10 @@ interface DynamicTransactionTabProps {
   onDataChange: () => void;
   transactionFields: TransactionFieldConfig[];
   fiTypeName: string;
+  onRBIGuidelines: () => void;
 }
 
-const DynamicTransactionTab = ({ onDataChange, transactionFields, fiTypeName }: DynamicTransactionTabProps) => {
+const DynamicTransactionTab = ({ onDataChange, transactionFields, fiTypeName, onRBIGuidelines }: DynamicTransactionTabProps) => {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
   const [transactions, setTransactions] = useState<any[]>([
@@ -207,8 +208,9 @@ const DynamicTransactionTab = ({ onDataChange, transactionFields, fiTypeName }: 
   }
 
   return (
-    <div className="h-full flex flex-col space-y-4 p-6">
-      <div className="grid grid-cols-2 gap-4">
+    <div className="h-full flex flex-col p-6">
+      <div className="flex justify-between items-start mb-4 gap-4">
+        <div className="grid grid-cols-2 gap-4 flex-1">
         <div className="space-y-2">
           <label className="text-sm font-medium">Start Date</label>
           <Popover>
@@ -250,6 +252,11 @@ const DynamicTransactionTab = ({ onDataChange, transactionFields, fiTypeName }: 
             </PopoverContent>
           </Popover>
         </div>
+        </div>
+        
+        <Button variant="outline" size="sm" onClick={onRBIGuidelines}>
+          View RBI Guidelines
+        </Button>
       </div>
 
       <div className="flex-1 overflow-auto border rounded-md">
