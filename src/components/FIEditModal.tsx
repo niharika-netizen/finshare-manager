@@ -52,8 +52,8 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-[95vw] max-h-[95vh] overflow-hidden flex p-0">
-        <div className="flex-1 flex flex-col">
-          <DialogHeader className="px-6 pt-6 pb-4 border-b">
+        <div className="flex-1 flex flex-col overflow-hidden">
+          <DialogHeader className="px-6 pt-6 pb-4 border-b flex-shrink-0">
             <div className="flex items-center justify-between">
               <DialogTitle className="text-2xl font-bold">{fiType.name}</DialogTitle>
               <div className="flex gap-2">
@@ -83,8 +83,8 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
             </div>
           </DialogHeader>
 
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col overflow-hidden">
-            <div className="border-b bg-muted/30 px-6">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col min-h-0">
+            <div className="border-b bg-muted/30 px-6 flex-shrink-0">
               <TabsList className="h-auto bg-transparent p-0 gap-0">
                 <TabsTrigger value="account" className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-background data-[state=active]:shadow-sm px-6 py-3">
                   Account
@@ -101,7 +101,7 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
               </TabsList>
             </div>
 
-            <div className="flex-1 overflow-x-auto overflow-y-auto">
+            <div className="flex-1 overflow-x-auto overflow-y-auto min-h-0">
               <TabsContent value="account" className="mt-0 h-full p-6 min-w-full">
                 <div className="flex justify-end mb-4">
                   <Button variant="outline" size="sm" onClick={handleRBIGuidelines}>
