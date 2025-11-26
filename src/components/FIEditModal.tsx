@@ -101,8 +101,8 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
               </TabsList>
             </div>
 
-            <div className="flex-1 overflow-auto">
-              <TabsContent value="account" className="mt-0 h-full p-6">
+            <div className="flex-1 overflow-x-auto overflow-y-auto">
+              <TabsContent value="account" className="mt-0 h-full p-6 min-w-full">
                 <div className="flex justify-end mb-4">
                   <Button variant="outline" size="sm" onClick={handleRBIGuidelines}>
                     View RBI Guidelines
@@ -111,7 +111,7 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                 <AccountTab onDataChange={handleDataChange} />
               </TabsContent>
 
-              <TabsContent value="profile" className="mt-0 h-full p-6">
+              <TabsContent value="profile" className="mt-0 h-full p-6 min-w-full">
                 <div className="flex justify-end mb-4">
                   <Button variant="outline" size="sm" onClick={handleRBIGuidelines}>
                     View RBI Guidelines
@@ -120,7 +120,7 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                 <NewProfileTab onDataChange={handleDataChange} />
               </TabsContent>
 
-              <TabsContent value="summary" className="mt-0 h-full p-6">
+              <TabsContent value="summary" className="mt-0 h-full p-6 min-w-full">
                 <div className="flex justify-end mb-4">
                   <Button variant="outline" size="sm" onClick={handleRBIGuidelines}>
                     View RBI Guidelines
