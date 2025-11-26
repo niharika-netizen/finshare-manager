@@ -20,6 +20,8 @@ interface FIEditModalProps {
 const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
   const [activeTab, setActiveTab] = useState("account");
   const [hasChanges, setHasChanges] = useState(false);
+  const [startDate, setStartDate] = useState("2024-01-01");
+  const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
 
   const handleDataChange = () => {
     setHasChanges(true);
@@ -50,7 +52,7 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-[95vw] max-h-[95vh] overflow-hidden flex p-0">
-          <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col">
           <DialogHeader className="px-6 pt-6 pb-4 border-b">
             <div className="flex items-center justify-between">
               <DialogTitle className="text-2xl font-bold">{fiType.name}</DialogTitle>
@@ -127,13 +129,126 @@ const FIEditModal = ({ isOpen, onClose, fiType }: FIEditModalProps) => {
                 <NewSummaryTab onDataChange={handleDataChange} />
               </TabsContent>
 
-              <TabsContent value="transactions" className="mt-0 h-full overflow-hidden flex flex-col">
-                <DynamicTransactionTab 
-                  onDataChange={handleDataChange} 
-                  transactionFields={transactionFields}
-                  fiTypeName={fiType.name}
-                  onRBIGuidelines={handleRBIGuidelines}
-                />
+              <TabsContent value="transactions" className="mt-0 h-full overflow-hidden flex flex-col p-6">
+                {/* Date Range Filter */}
+                <div className="flex items-center gap-6 mb-6 pb-6 border-b">
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium text-gray-700">Start Date</label>
+                    <span className="text-red-500">*</span>
+                    <input
+                      type="date"
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                      className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium text-gray-700">End Date</label>
+                    <span className="text-red-500">*</span>
+                    <input
+                      type="date"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                      className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+
+                  <div className="flex-1"></div>
+
+                  <Button variant="outline" size="sm" onClick={handleRBIGuidelines}>
+                    View RBI Guidelines
+                  </Button>
+                </div>
+
+                {/* Transaction Table */}
+                <div className="flex-1 overflow-auto border border-gray-200 rounded-lg">
+                  <table className="w-full border-collapse text-sm">
+                    <thead className="sticky top-0 bg-gray-100 border-b border-gray-300">
+                      <tr>
+                        {transactionFields.length > 0 ? (
+                          transactionFields.map((field) => (
+                            <th
+                              key={field.name}
+                              className="px-4 py-3 text-left font-semibold text-gray-700 border-r border-gray-300 last:border-r-0 whitespace-nowrap"
+                            >
+                              {field.label}
+                              {field.required && <span className="text-red-500 ml-1">*</span>}
+                            </th>
+                          ))
+                        ) : (
+                          <th className="px-4 py-3 text-center text-gray-500 font-medium">
+                            No transaction fields configured for this FI type
+                          </th>
+                        )}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {transactionFields.length > 0 ? (
+                        // Sample rows - Replace with actual transaction data
+                        [
+                          {
+                            type: "CREDIT",
+                            mode: "UPI",
+                            amount: "5000.00",
+                            transactionalBalance: "₹150,000",
+                            transactionTimestamp: "20/11/2024 16:00",
+                            valueDate: "20/11/2024 16:00",
+                            txnId: "TXN001",
+                            narration: "Salary Credit",
+                            reference: "-",
+                          },
+                          {
+                            type: "DEBIT",
+                            mode: "NEFT",
+                            amount: "2000.00",
+                            transactionalBalance: "₹148,000",
+                            transactionTimestamp: "21/11/2024 19:45",
+                            valueDate: "21/11/2024 19:45",
+                            txnId: "TXN002",
+                            narration: "Bill Payment",
+                            reference: "-",
+                          },
+                        ].map((row, idx) => (
+                          <tr
+                            key={idx}
+                            className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
+                          >
+                            {transactionFields.map((field) => (
+                              <td
+                                key={field.name}
+                                className="px-4 py-3 border-r border-gray-200 last:border-r-0 text-gray-700"
+                              >
+                                {row[field.name as keyof typeof row] || "-"}
+                              </td>
+                            ))}
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td className="px-4 py-8 text-center text-gray-500">
+                            No transaction fields configured
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Pagination Controls (Optional) */}
+                {transactionFields.length > 0 && (
+                  <div className="flex items-center justify-between mt-4">
+                    <span className="text-sm text-gray-600">Showing 2 of 2 transactions</span>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" disabled>
+                        ← Previous
+                      </Button>
+                      <Button variant="outline" size="sm" disabled>
+                        Next →
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </TabsContent>
             </div>
           </Tabs>
