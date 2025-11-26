@@ -50,9 +50,9 @@ const MobileAuth = () => {
               />
             </svg>
           </div>
-          <CardTitle className="text-2xl font-bold">FinShare Mock Data Management</CardTitle>
+          <CardTitle className="text-2xl font-bold">Finshare Access</CardTitle>
           <CardDescription>
-            Enter your mobile number to your Mock account data
+            Enter your mobile number to manage your financial information
           </CardDescription>
         </CardHeader>
         <CardContent>
