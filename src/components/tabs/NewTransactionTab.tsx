@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TransactionData } from "@/types/fi-types";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, CalendarIcon } from "lucide-react";
+import { ExternalLink, CalendarIcon, Plus } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
@@ -71,6 +71,23 @@ const NewTransactionTab = ({ onDataChange }: NewTransactionTabProps) => {
 
   const handleRBIGuidelines = () => {
     window.open("https://www.rbi.org.in/", "_blank");
+  };
+
+  const handleAddTransaction = () => {
+    const newTransaction = {
+      id: (transactions.length + 1).toString(),
+      type: "CREDIT" as const,
+      mode: "UPI" as const,
+      amount: "0.00",
+      transactionalBalance: "0.00",
+      transactionTimestamp: new Date().toISOString(),
+      valueDate: new Date().toISOString(),
+      txnId: `TXN${String(transactions.length + 1).padStart(3, '0')}`,
+      narration: "",
+      reference: "",
+    };
+    setTransactions([...transactions, newTransaction]);
+    onDataChange();
   };
 
   const renderEditableCell = (
@@ -166,7 +183,7 @@ const NewTransactionTab = ({ onDataChange }: NewTransactionTabProps) => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <div className="flex gap-4">
+        <div className="flex gap-4 items-end">
           <div className="space-y-2">
             <Label>Start Date *</Label>
             <Popover>
@@ -208,6 +225,11 @@ const NewTransactionTab = ({ onDataChange }: NewTransactionTabProps) => {
               </PopoverContent>
             </Popover>
           </div>
+
+          <Button onClick={handleAddTransaction} size="sm" className="gap-2">
+            <Plus className="h-4 w-4" />
+            Add Transaction
+          </Button>
         </div>
 
         <Button variant="outline" size="sm" onClick={handleRBIGuidelines} className="gap-2">
